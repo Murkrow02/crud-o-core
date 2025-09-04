@@ -1,1 +1,1 @@
-enum CrudoFormDisplayType { fullPage, dialog, widget }
+enum CrudoFormDisplayType { fullPage, dialog, widget, widgetPlain }
