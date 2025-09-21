@@ -85,6 +85,22 @@ class RestClient {
     return _handleResponseAndDecodeBody(response);
   }
 
+  // Function to perform a PATCH request
+  Future<dynamic> patch(String endpoint, Map<String, dynamic> data,
+      {RestRequest? request}) async {
+    Uri uri = _buildUri(endpoint, request);
+    var validatedData = _validateJson(data);
+    logger.d("PATCH: $uri");
+    final response = await http
+        .patch(
+          uri,
+          body: jsonEncode(validatedData),
+          headers: await _configuration.getHeaders!(),
+        )
+        .timeout(Duration(seconds: _configuration.timeoutSeconds));
+    return _handleResponseAndDecodeBody(response);
+  }
+
   Future<Uint8List?> downloadFileBytes(String endpoint, {RestRequest? request}) async {
     Uri uri = _buildUri(endpoint, request);
     return downloadFileBytesFromUri(uri, request: request);
